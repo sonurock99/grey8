@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Grey8 Footwears</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{margin:0;font-family:Arial;background:#f4f4f4}
+header{background:#111;color:#fff;padding:15px;text-align:center}
+.banner{background:#111827;color:#fff;margin:10px;padding:10px;border-radius:8px;text-align:center}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;padding:15px
+}
+
+.card{
+background:#fff;border-radius:10px;
+box-shadow:0 4px 8px rgba(0,0,0,.1);
+overflow:hidden
+}
+
+.slides{height:220px}
+.slides img{width:100%;height:100%;object-fit:cover}
+
+.thumbs{display:flex;gap:6px;padding:8px}
+.thumbs img{
+width:55px;height:45px;object-fit:cover;
+border-radius:6px;border:2px solid transparent;
+cursor:pointer
+}
+.thumbs img.active{border-color:#111}
+
+.meta{text-align:center;padding:10px}
+.price{font-weight:bold}
+.old{text-decoration:line-through;color:#777;margin-right:6px}
+.free{font-size:12px;color:#047857}
+
+.btn{
+background:#22c55e;color:#fff;
+padding:12px;border-radius:8px;
+display:block;margin-top:8px;
+text-decoration:none;font-weight:bold
+}
+
+/* ===== MODAL ===== */
+.modal-bg{
+position:fixed;inset:0;
+background:rgba(0,0,0,.6);
+display:none;align-items:flex-end;
+z-index:99
+}
+
+.modal{
+background:#fff;
+width:100%;
+max-height:90vh;
+border-radius:18px 18px 0 0;
+padding:18px;
+overflow-y:auto;
+animation:slideUp .3s ease;
+}
+
+@keyframes slideUp{
+from{transform:translateY(100%)}
+to{transform:translateY(0)}
+}
+
+.modal h3{text-align:center;margin-bottom:10px}
+
+label{font-size:13px;font-weight:bold}
+input,select,textarea{
+width:100%;padding:10px;
+border-radius:8px;border:1px solid #ccc;
+margin-bottom:8px;font-size:14px
+}
+textarea{resize:none;height:60px}
+
+.cancel{
+background:#e5e7eb;color:#111;
+margin-top:6px
+}
+</style>
+</head>
+
+<body>
+
+<header><h2>Grey8 Footwears</h2></header>
+<div class="banner">✅ Cash on Delivery Available</div>
+
+<div class="grid" id="products"></div>
+
+<!-- ORDER FORM -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h3 id="pname"></h3>
+
+    <label>Full Name</label>
+    <input id="name" placeholder="Enter full name">
+
+    <label>Mobile Number</label>
+    <input id="phone" placeholder="10 digit mobile">
+
+    <label>House / Street</label>
+    <textarea id="street" placeholder="House no, street, area"></textarea>
+
+    <label>City</label>
+    <input id="city" placeholder="City">
+
+    <label>Pincode</label>
+    <input id="pin" placeholder="6 digit pincode">
+
+    <label>Size</label>
+    <select id="size">
+      <option value="">Select size</option>
+      <option>6</option><option>7</option>
+      <option>8</option><option>9</option><option>10</option>
+    </select>
+
+    <label>Quantity</label>
+    <input id="qty" type="number" min="1" value="1">
+
+    <a class="btn" onclick="submitOrder()">Place Order (₹349)</a>
+    <a class="btn cancel" onclick="closeForm()">Cancel</a>
+  </div>
+</div>
+
+<script>
+const PHONE="917879266424";
+let currentProduct="";
+
+const products=[
+{name:"Everyday Comfort Sneakers",imgs:["image/1.jpg","image/2.jpg","image/3.jpg"]},
+{name:"Rockstar Denim Loafers",imgs:["image/11.jpg","image/22.jpg","image/33.jpg"]},
+{name:"Boss Edition Tan Sneakers",imgs:["image/111.jpg","image/222.jpg","image/333.jpg"]},
+{name:"Urban Sport Sneakers",imgs:["image/1111.jpg","image/2222.jpg","image/3333.jpg"]},
+{name:"Modern Fashion Sneakers",imgs:["image/11111.jpg","image/22222.jpg","image/33333.jpg"]},
+{name:"Classic Denim Lace-ups",imgs:["image/111111.jpg","image/222222.jpg","image/333333.jpg"]}
+];
+
+const box=document.getElementById("products");
+
+products.forEach((p,i)=>{
+box.innerHTML+=`
+<div class="card">
+<div class="slides"><img src="${p.imgs[0]}" id="m${i}"></div>
+<div class="thumbs">
+${p.imgs.map((img,j)=>`
+<img src="${img}" class="${j==0?'active':''}"
+onclick="chg(${i},'${img}',this)">`).join("")}
+</div>
+<div class="meta">
+<b>${p.name}</b>
+<div class="price"><span class="old">₹999</span> ₹349</div>
+<div class="free">Free Delivery</div>
+<a class="btn" onclick="openForm('${p.name}')">Buy Now</a>
+</div>
+</div>`;
+});
+
+function chg(i,src,e){
+document.getElementById("m"+i).src=src;
+e.parentElement.querySelectorAll("img").forEach(x=>x.classList.remove("active"));
+e.classList.add("active");
+}
+
+function openForm(p){
+currentProduct=p;
+document.getElementById("pname").innerText=p;
+document.getElementById("modal").style.display="flex";
+}
+
+function closeForm(){
+document.getElementById("modal").style.display="none";
+}
+
+function submitOrder(){
+let name=nameVal("name");
+let phone=nameVal("phone");
+let street=nameVal("street");
+let city=nameVal("city");
+let pin=nameVal("pin");
+let size=document.getElementById("size").value;
+let qty=document.getElementById("qty").value;
+
+if(!/^[A-Za-z ]+$/.test(name)) return alert("Enter valid name");
+if(!/^[0-9]{10}$/.test(phone)) return alert("Enter valid mobile number");
+if(street.length<5) return alert("Enter proper address");
+if(city.length<2) return alert("Enter city");
+if(!/^[0-9]{6}$/.test(pin)) return alert("Enter valid pincode");
+if(size==="") return alert("Select size");
+
+let msg=`NEW ORDER
+Product: ${currentProduct}
+Name: ${name}
+Mobile: ${phone}
+Address: ${street}, ${city} - ${pin}
+Size: ${size}
+Qty: ${qty}
+Payment: COD`;
+
+window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`,'_blank');
+closeForm();
+}
+
+function nameVal(id){
+return document.getElementById(id).value.trim();
+}
+</script>
+
+</body>
+</html>
