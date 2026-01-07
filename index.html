@@ -8,125 +8,168 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-body{margin:0;font-family:Arial;background:#fff;color:#111}
-header{text-align:center;padding:15px;border-bottom:1px solid #e5e7eb}
-.banner{text-align:center;margin:10px;padding:10px;border:1px solid #e5e7eb;border-radius:8px}
+body{
+  margin:0;
+  font-family:Arial;
+  background:#fff;
+  color:#111
+}
+header{
+  text-align:center;
+  padding:15px;
+  border-bottom:1px solid #e5e7eb
+}
+.banner{
+  text-align:center;
+  margin:10px;
+  padding:10px;
+  border:1px solid #e5e7eb;
+  border-radius:8px
+}
 
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:15px;padding:15px
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
+  padding:15px
 }
 
 .card{
-border:1px solid #e5e7eb;
-border-radius:14px;
-overflow:hidden;
-background:#fff;
-position:relative
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  overflow:hidden;
+  background:#fff;
+  position:relative
 }
 
-/* OFF BADGE */
+/* % OFF BADGE – IMAGE KE UPAR */
 .badge{
-position:absolute;
-top:10px;
-right:10px;
-background:#dc2626;
-color:#fff;
-font-size:12px;
-padding:4px 8px;
-border-radius:6px;
-font-weight:bold
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:#dc2626;
+  color:#fff;
+  font-size:12px;
+  padding:5px 10px;
+  border-radius:14px;
+  font-weight:bold;
+  z-index:10;          /* 🔥 FIX */
 }
 
 /* SLIDER */
 .slides{
-height:220px;
-position:relative;
-overflow:hidden
+  height:220px;
+  position:relative;
+  overflow:hidden;
 }
 .slides img{
-width:100%;
-height:100%;
-object-fit:contain
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  position:relative;
+  z-index:1;
 }
 
 .arrow{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:rgba(0,0,0,.6);
-color:#fff;border:none;
-width:32px;height:32px;
-border-radius:50%;
-font-size:18px;
-cursor:pointer
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,.6);
+  color:#fff;
+  border:none;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  font-size:18px;
+  cursor:pointer;
+  z-index:5
 }
 .arrow.left{left:8px}
 .arrow.right{right:8px}
 
-.meta{text-align:center;padding:12px}
-.old{text-decoration:line-through;color:#777;font-size:14px}
-.price{font-size:20px;font-weight:bold}
+.meta{
+  text-align:center;
+  padding:12px
+}
+.old{
+  text-decoration:line-through;
+  color:#777;
+  font-size:14px
+}
+.price{
+  font-size:20px;
+  font-weight:bold
+}
 
 .stars{
-color:#facc15;
-font-size:15px;
-margin:4px 0
+  color:#facc15;
+  font-size:15px;
+  margin:4px 0
 }
-.review{font-size:13px;color:#444}
-.fast{font-size:13px;color:#059669;font-weight:bold}
+.review{
+  font-size:13px;
+  color:#444
+}
+.fast{
+  font-size:13px;
+  color:#059669;
+  font-weight:bold
+}
 
 .btn{
-background:#22c55e;
-color:#000;
-padding:12px;
-border-radius:10px;
-display:block;
-margin-top:10px;
-text-decoration:none;
-font-weight:bold
+  background:#22c55e;
+  color:#000;
+  padding:12px;
+  border-radius:10px;
+  display:block;
+  margin-top:10px;
+  text-decoration:none;
+  font-weight:bold
 }
 
 /* MODAL */
 .modal-bg{
-position:fixed;inset:0;
-background:rgba(0,0,0,.4);
-display:none;
-align-items:flex-end;
-z-index:99
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:none;
+  align-items:flex-end;
+  z-index:99
 }
 .modal{
-background:#fff;
-width:100%;
-max-height:90vh;
-border-radius:18px 18px 0 0;
-padding:18px;
-overflow:auto
+  background:#fff;
+  width:100%;
+  max-height:90vh;
+  border-radius:18px 18px 0 0;
+  padding:18px;
+  overflow:auto
 }
-.modal input,.modal textarea,.modal select{
-width:100%;padding:10px;
-margin-bottom:8px;
-border-radius:8px;
-border:1px solid #ccc
+.modal input,
+.modal textarea,
+.modal select{
+  width:100%;
+  padding:10px;
+  margin-bottom:8px;
+  border-radius:8px;
+  border:1px solid #ccc
 }
 
 /* FOOTER */
 footer{
-border-top:1px solid #e5e7eb;
-padding:20px;
-text-align:center
+  border-top:1px solid #e5e7eb;
+  padding:20px;
+  text-align:center
 }
 footer a{
-margin:8px;
-font-size:22px;
-color:#111
+  margin:8px;
+  font-size:22px;
+  color:#111
 }
 .help{
-font-size:13px;
-color:#444;
-line-height:1.6;
-margin-top:10px
+  font-size:13px;
+  color:#444;
+  line-height:1.6;
+  margin-top:10px
 }
 </style>
 </head>
@@ -157,7 +200,8 @@ margin-top:10px
 
     <select>
       <option>Select Size</option>
-      <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+      <option>6</option><option>7</option><option>8</option>
+      <option>9</option><option>10</option>
     </select>
 
     <a class="btn">Place Order</a>
@@ -192,81 +236,84 @@ const products=[
 ];
 
 function rand(min,max){
-return Math.floor(Math.random()*(max-min+1))+min;
+  return Math.floor(Math.random()*(max-min+1))+min;
 }
 
 function starsHTML(rate){
-let full=Math.floor(rate);
-let stars="";
-for(let i=1;i<=5;i++){
-stars+= i<=full ? "★" : "☆";
-}
-return stars;
+  let full=Math.floor(rate);
+  let s="";
+  for(let i=1;i<=5;i++){
+    s+= i<=full ? "★" : "☆";
+  }
+  return s;
 }
 
 let box=document.getElementById("products");
 let slideIndex=[], priceData={};
 
 products.forEach((p,i)=>{
-slideIndex[i]=0;
+  slideIndex[i]=0;
 
-let mrp=rand(990,1249);
-let sell=rand(241,262);
-let save=mrp-sell;
-let off=Math.round((save/mrp)*100);
-let rating=(Math.random()*1.5+3.5).toFixed(1);
-let reviews=rand(125,769);
+  let mrp=rand(990,1249);
+  let sell=rand(241,262);
+  let save=mrp-sell;
+  let off=Math.round((save/mrp)*100);
+  let rating=(Math.random()*1.5+3.5).toFixed(1);
+  let reviews=rand(125,769);
 
-priceData[p.name]={mrp,sell,save,off};
+  priceData[p.name]={mrp,sell,save,off};
 
-box.innerHTML+=`
-<div class="card">
-  <div class="badge">${off}% OFF</div>
+  box.innerHTML+=`
+  <div class="card">
+    <div class="badge">${off}% OFF</div>
 
-  <div class="slides">
-    <button class="arrow left" onclick="prev(${i})">‹</button>
-    <img id="img${i}" src="${p.imgs[0]}">
-    <button class="arrow right" onclick="next(${i})">›</button>
-  </div>
+    <div class="slides">
+      <button class="arrow left" onclick="prev(${i})">‹</button>
+      <img id="img${i}" src="${p.imgs[0]}">
+      <button class="arrow right" onclick="next(${i})">›</button>
+    </div>
 
-  <div class="meta">
-    <b>${p.name}</b>
-    <div class="stars">${starsHTML(rating)} (${rating})</div>
-    <div class="review">${reviews} reviews</div>
-    <div class="price">₹${sell}</div>
-    <div class="old">M.R.P ₹${mrp}</div>
-    <div class="fast">FREE DELIVERY</div>
-    <a class="btn" onclick="openForm('${p.name}')">Buy Now</a>
-  </div>
-</div>`;
+    <div class="meta">
+      <b>${p.name}</b>
+      <div class="stars">${starsHTML(rating)} (${rating})</div>
+      <div class="review">${reviews} reviews</div>
+      <div class="price">₹${sell}</div>
+      <div class="old">M.R.P ₹${mrp}</div>
+      <div class="fast">FREE DELIVERY</div>
+      <a class="btn" onclick="openForm('${p.name}')">Buy Now</a>
+    </div>
+  </div>`;
 });
 
 /* SLIDER */
 function update(i){
-document.getElementById("img"+i).src=products[i].imgs[slideIndex[i]];
+  document.getElementById("img"+i).src =
+    products[i].imgs[slideIndex[i]];
 }
 function next(i){
-slideIndex[i]=(slideIndex[i]+1)%products[i].imgs.length;
-update(i);
+  slideIndex[i]=(slideIndex[i]+1)%products[i].imgs.length;
+  update(i);
 }
 function prev(i){
-slideIndex[i]=(slideIndex[i]-1+products[i].imgs.length)%products[i].imgs.length;
-update(i);
+  slideIndex[i]=(slideIndex[i]-1+products[i].imgs.length)%products[i].imgs.length;
+  update(i);
 }
 products.forEach((p,i)=>{
-setInterval(()=>{next(i)},4000);
+  setInterval(()=>{next(i)},4000);
 });
 
 /* FORM */
 function openForm(name){
-let p=priceData[name];
-document.getElementById("pname").innerText=name;
-document.getElementById("pprice").innerHTML=`<b>₹${p.sell}</b> <span class="old">M.R.P ₹${p.mrp}</span>`;
-document.getElementById("psave").innerText=`You Save ₹${p.save} (${p.off}% OFF)`;
-document.getElementById("modal").style.display="flex";
+  let p=priceData[name];
+  document.getElementById("pname").innerText=name;
+  document.getElementById("pprice").innerHTML=
+    `<b>₹${p.sell}</b> <span class="old">M.R.P ₹${p.mrp}</span>`;
+  document.getElementById("psave").innerText=
+    `You Save ₹${p.save} (${p.off}% OFF)`;
+  document.getElementById("modal").style.display="flex";
 }
 function closeForm(){
-document.getElementById("modal").style.display="none";
+  document.getElementById("modal").style.display="none";
 }
 </script>
 
